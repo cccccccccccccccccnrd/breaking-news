@@ -38,6 +38,7 @@ wss.on('connection', (ws) => {
 async function go (browser, url, selector) {
   console.log(url, selector)
   const page = await browser.newPage()
+  page.setDefaultNavigationTimeout(0)
   await page.goto(url, { waitUntil: 'networkidle2' })
   await page.waitForSelector(selector)
 
@@ -50,26 +51,15 @@ async function go (browser, url, selector) {
 }
 
 async function init () {
-  try {
-    const browser = await puppeteer.launch(/* {headless: false} */)
+  const browser = await puppeteer.launch(/* {headless: false} */)
 
-    for (const entry of list) {
-      const headings = await go(browser, entry.url, entry.selector)
-      state[entry.url] = headings
-    }
-  
-    console.log(state)
-  } finally {
-    await browser.close()
+  for (const entry of list) {
+    const headings = await go(browser, entry.url, entry.selector)
+    state[entry.url] = headings
   }
+
+  console.log(state)
+  await browser.close()
 }
 
 init()
-
-process.on('SIGINT', () => {
-  try {
-    await browser.close()
-  } finally {
-    process.exit()
-  }
-})
