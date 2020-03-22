@@ -50,15 +50,18 @@ async function go (browser, url, selector) {
 }
 
 async function init () {
-  const browser = await puppeteer.launch(/* {headless: false} */)
+  try {
+    const browser = await puppeteer.launch(/* {headless: false} */)
 
-  for (const entry of list) {
-    const headings = await go(browser, entry.url, entry.selector)
-    state[entry.url] = headings
+    for (const entry of list) {
+      const headings = await go(browser, entry.url, entry.selector)
+      state[entry.url] = headings
+    }
+  
+    console.log(state)
+  } finally {
+    await browser.close()
   }
-
-  console.log(state)
-  await browser.close()
 }
 
 init()
