@@ -38,7 +38,7 @@ wss.on('connection', (ws) => {
 async function go (browser, url, selector) {
   console.log(url, selector)
   const page = await browser.newPage()
-  await page.goto(url)
+  await page.goto(url, { waitUntil: 'networkidle0' })
   await page.waitForSelector(selector)
 
   const data = await page.evaluate((selector) => {
