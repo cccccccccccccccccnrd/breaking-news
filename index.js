@@ -38,7 +38,7 @@ wss.on('connection', (ws) => {
 async function go (browser, url, selector) {
   console.log(url, selector)
   const page = await browser.newPage()
-  await page.goto(url)
+  await page.goto(url, { waitUntil: 'networkidle2' })
   await page.waitForSelector(selector)
 
   const data = await page.evaluate((selector) => {
@@ -50,7 +50,7 @@ async function go (browser, url, selector) {
 }
 
 async function init () {
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({headless: false})
 
   for (const entry of list) {
     const headings = await go(browser, entry.url, entry.selector)
