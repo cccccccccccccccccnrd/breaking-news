@@ -65,3 +65,11 @@ async function init () {
 }
 
 init()
+
+process.on('SIGINT', () => {
+  try {
+    await browser.close()
+  } finally {
+    process.exit()
+  }
+})
