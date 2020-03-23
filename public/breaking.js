@@ -25,9 +25,9 @@ function check (newState) {
 function update () {
   let html = ''
 
-  for (const entry in state) {
+  for (const entry in state.list) {
     html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
-    state[entry].forEach((heading) => {
+    state.list[entry].forEach((heading) => {
       html += `<p>${ heading }</p>`
     })
   }
