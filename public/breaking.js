@@ -23,10 +23,14 @@ function check (newState) {
   }
 }
 
-function update () {
+function animate () {
   const since = (Date.now() - state.timestamp) / 1000
-  const time = 60 * 10 - since
+  const time = Math.floor(60 * 10) - Math.floor(since)
   console.log(since, time)
+}
+
+function update () {
+  animate()
 
   let html = ''
   for (const entry in state.list) {
