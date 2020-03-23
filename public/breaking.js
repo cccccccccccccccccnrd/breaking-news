@@ -14,7 +14,7 @@ function check (newState) {
   if (state.list !== newState.list) {
     console.log('state changed, updating')
     const diff = DeepDiff.diff(state.list, newState.list)
-    console.log(state)
+    console.log(newState)
     console.log(diff)
     state = newState
     update()
