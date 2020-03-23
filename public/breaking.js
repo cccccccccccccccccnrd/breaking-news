@@ -1,16 +1,19 @@
 const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
 const socket = new WebSocket(url)
 
-let state = {}
+let state = {
+  list: {},
+  timestamp: null
+}
 
 socket.addEventListener('message', (message) => {
   check(JSON.parse(message.data))
 })
 
 function check (newState) {
-  if (state !== newState) {
+  if (state.list !== newState.list) {
     console.log('state changed, updating')
-    const diff = DeepDiff.diff(state, newState)
+    const diff = DeepDiff.diff(state.list, newState.list)
     console.log(diff)
     state = newState
     update()

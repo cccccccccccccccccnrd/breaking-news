@@ -34,7 +34,10 @@ const list = [{
   selector: '.teaser__title a'
 }]
 
-const state = {}
+const state = {
+  list: {},
+  timestamp: null
+}
 
 const app = express()
 const port = 3330
@@ -85,8 +88,10 @@ async function check () {
 
   for (const entry of list) {
     const headings = await go(browser, entry.url, entry.selector)
-    state[entry.url] = headings
+    state.list[entry.url] = headings
   }
+
+  state.timestamp = Date.now()
 
   await browser.close()
   broadcast()
