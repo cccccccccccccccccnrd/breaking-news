@@ -25,7 +25,7 @@ function check (newState) {
 
 function animate () {
   const since = (Date.now() - state.timestamp) / 1000
-  const time = Math.floor(60 * 10) - Math.floor(since)
+  const time =  Math.floor(since) - Math.floor(60 * 10)
   console.log(since, time)
 }
 
