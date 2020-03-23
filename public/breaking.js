@@ -24,8 +24,10 @@ function check (newState) {
 }
 
 function update () {
-  let html = ''
+  const since = state.timestamp - Date.now() * 1000
+  console.log(since)
 
+  let html = ''
   for (const entry in state.list) {
     html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
     state.list[entry].forEach((heading) => {
