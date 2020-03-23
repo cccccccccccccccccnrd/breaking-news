@@ -24,7 +24,7 @@ function check (newState) {
 }
 
 function update () {
-  const since = (state.timestamp - Date.now()) * 1000
+  const since = (state.timestamp - Date.now()) / 1000
   console.log(since)
 
   let html = ''
