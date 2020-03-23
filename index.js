@@ -24,8 +24,14 @@ const list = [{
   url: `https://www.irinn.ir/fa/search?query=${ term }`,
   selector: '.search_result_container .tag_title'
 }, {
-  url: `https://search.cctv.com/search.php?qtext=${ term }&type=web`,
+  url: `http://search.cctv.com/search.php?qtext=${ term }&type=web`,
   selector: '.tuwenjg h3'
+}, {
+  url: `https://ariananews.af/?s=${ term }`,
+  selector: '.post-box-title a'
+}, {
+  url: `https://www.africanews.com/search/${ term }`,
+  selector: '.teaser__title a'
 }]
 
 const state = {}
@@ -74,7 +80,7 @@ async function go (browser, url, selector) {
   }
 }
 
-async function init () {
+async function check () {
   const browser = await puppeteer.launch(/* { headless: false } */)
 
   for (const entry of list) {
@@ -86,4 +92,8 @@ async function init () {
   broadcast()
 }
 
-init()
+check()
+
+setInterval(() => {
+  check()
+}, 5 * 60 * 1000)
