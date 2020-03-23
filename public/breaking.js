@@ -29,7 +29,7 @@ function animate () {
 
   const entries = []
   for (const entry in state.list) {
-    entriess.push(state.list[entry])
+    entries.push(state.list[entry])
   }
   console.log(entries.length)
   console.log(since, time)
