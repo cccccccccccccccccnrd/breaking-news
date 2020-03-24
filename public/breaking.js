@@ -1,24 +1,19 @@
 const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
 const socket = new WebSocket(url)
 
-let state = {
+const state = {
   list: {},
   timestamp: null
 }
 
 socket.addEventListener('message', (message) => {
-  check(JSON.parse(message.data))
+  update(JSON.parse(message.data))
 })
 
 function difference (newState) {
   const diff = DeepDiff.diff(state.list, newState.list)
   console.log(newState)
-  /* console.log(diff) */
-}
-
-function check (newState) {
-  difference(newState)
-  update(newState)
+  console.log(diff)
 }
 
 function animate () {
@@ -33,7 +28,7 @@ function animate () {
   const count = entries.flat().length
   const index = Math.floor((count / (60 * 10)) * since)
 
-  console.clear()
+  /* console.clear() */
   console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
@@ -45,6 +40,7 @@ function animate () {
 }
 
 function update (newState) {
+  console.log('state update', state.timestamp)
   state = newState
   animate()
 
