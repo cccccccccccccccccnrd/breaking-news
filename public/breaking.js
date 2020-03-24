@@ -1,3 +1,5 @@
+import { request } from "express"
+
 const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
 const socket = new WebSocket(url)
 
@@ -37,11 +39,14 @@ function animate () {
 
   const count = entries.flat().length
   const index = Math.floor((count / (60 * 10)) * since)
-
+  
+  console.clear()
   console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ time } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
+
+  requestAnimationFrame(animate)
 }
 
 function update (newState) {
