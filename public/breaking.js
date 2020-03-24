@@ -40,8 +40,8 @@ function animate () {
 }
 
 function update (newState) {
-  console.log('state update', state.timestamp)
   state = newState
+  console.log('state update', state.timestamp)
   animate()
 
   let html = ''
