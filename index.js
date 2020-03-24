@@ -50,6 +50,7 @@ const wss = new WebSocket.Server({ port: 3331 })
 
 wss.on('connection', (ws) => {
   ws.send(JSON.stringify(state))
+  console.log('connected clients', wss.clients.length)
 })
 
 function broadcast () {
@@ -57,6 +58,7 @@ function broadcast () {
 
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
+      console.log('broadcasted state')
       client.send(JSON.stringify(state))
     }
   })
