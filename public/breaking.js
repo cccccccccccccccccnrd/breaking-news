@@ -44,7 +44,9 @@ function animate () {
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
 
-  requestAnimationFrame(animate)
+  setTimeout(() => {
+    animate()
+  }, 1000)
 }
 
 function update (newState) {
