@@ -35,10 +35,10 @@ function animate () {
   const count = entries.flat().length
   const index = Math.floor((count / (60 * 10)) * since)
 
-  console.log(`time since update: ${ since }`, 'padding: 5px; background: blue; color: white;')
-  console.log(`time until update: ${ time }`, 'padding: 5px; background: blue; color: white;')
-  console.log(`total headlines: ${ count }`, 'padding: 5px; background: blue; color: white;')
-  console.log(`current headline: ${ index }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%ctime since update: ${ since }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%ctime until update: ${ time }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%ctotal headlines: ${ count }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%ccurrent headline: ${ index }`, 'padding: 5px; background: blue; color: white;')
 }
 
 function update () {
