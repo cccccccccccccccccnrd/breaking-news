@@ -7,6 +7,7 @@ let state = {
 }
 
 socket.addEventListener('message', (message) => {
+  console.log('new state incoming')
   update(JSON.parse(message.data))
 })
 
@@ -32,6 +33,7 @@ function update (newState) {
 }
 
 function animate () {
+  console.log(state.timestamp)
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
 
