@@ -25,14 +25,17 @@ function check (newState) {
 
 function animate () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
-  const time = 60 * 10 - since
+  const time = (60 * 10) - since
+  console.log(since, time)
 
   const entries = []
   for (const entry in state.list) {
     entries.push(state.list[entry])
   }
-  console.log(entries.flat().length)
-  console.log(since, time)
+
+  const count = entries.flat().length
+  const index = (count / (60 * 10)) * since
+  console.log(count, index)
 }
 
 function update () {
