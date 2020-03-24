@@ -44,7 +44,7 @@ function animate () {
   console.log(`%ccurrent headline: ${ index }`, 'padding: 5px; background: blue; color: white;')
 }
 
-function update () {
+function update (newState) {
   state = newState
   animate()
 
