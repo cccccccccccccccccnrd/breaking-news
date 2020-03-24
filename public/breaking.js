@@ -7,7 +7,6 @@ let state = {
 }
 
 socket.addEventListener('message', (message) => {
-  console.log('new state incoming')
   update(JSON.parse(message.data))
 })
 
@@ -19,7 +18,6 @@ function difference (newState) {
 
 function update (newState) {
   state = newState
-  console.log('state update', state.timestamp)
 
   let html = ''
   for (const entry in state.list) {
@@ -32,7 +30,7 @@ function update (newState) {
   document.querySelector('#container').innerHTML = html
 }
 
-function animate () {
+function track () {
   console.log(state.timestamp)
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
@@ -45,15 +43,15 @@ function animate () {
   const count = entries.flat().length
   const index = Math.floor((count / (60 * 10)) * since)
 
-  /* console.clear() */
+  console.clear()
   console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
 
   setTimeout(() => {
-    animate()
+    track()
   }, 1000)
 }
 
-animate()
+track()
