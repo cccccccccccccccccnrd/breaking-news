@@ -57,6 +57,7 @@ function broadcast () {
   console.log(state)
 
   wss.clients.forEach((client) => {
+    console.log('for each')
     if (client.readyState === WebSocket.OPEN) {
       console.log('broadcasted state')
       client.send(JSON.stringify(state))
