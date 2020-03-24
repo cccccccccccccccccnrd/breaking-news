@@ -26,7 +26,6 @@ function check (newState) {
 function animate () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const time = (60 * 10) - since
-  console.log(since, time)
 
   const entries = []
   for (const entry in state.list) {
@@ -34,8 +33,12 @@ function animate () {
   }
 
   const count = entries.flat().length
-  const index = (count / (60 * 10)) * since
-  console.log(count, index)
+  const index = Math.floor((count / (60 * 10)) * since)
+
+  console.log(`time since update: ${ since }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`time until update: ${ time }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`total headlines: ${ count }`, 'padding: 5px; background: blue; color: white;')
+  console.log(`current headline: ${ index }`, 'padding: 5px; background: blue; color: white;')
 }
 
 function update () {
