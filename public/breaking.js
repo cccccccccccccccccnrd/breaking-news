@@ -31,7 +31,7 @@ function animate () {
   for (const entry in state.list) {
     entries.push(state.list[entry])
   }
-  console.log(entries.length)
+  console.log(entries.flat().length)
   console.log(since, time)
 }
 
