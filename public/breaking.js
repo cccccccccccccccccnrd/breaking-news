@@ -20,7 +20,7 @@ function check (newState) {
   if (state.list !== newState.list) {
     console.log('state changed, updating')
     difference(newState)
-    update()
+    update(newState)
   } else {
     console.log('no state changes')
   }
