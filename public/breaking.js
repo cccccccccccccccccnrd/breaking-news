@@ -16,6 +16,21 @@ function difference (newState) {
   console.log(diff)
 }
 
+function update (newState) {
+  state = newState
+  console.log('state update', state.timestamp)
+
+  let html = ''
+  for (const entry in state.list) {
+    html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
+    state.list[entry].forEach((heading) => {
+      html += `<p>${ heading }</p>`
+    })
+  }
+
+  document.querySelector('#container').innerHTML = html
+}
+
 function animate () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
@@ -39,18 +54,4 @@ function animate () {
   }, 1000)
 }
 
-function update (newState) {
-  state = newState
-  console.log('state update', state.timestamp)
-  animate()
-
-  let html = ''
-  for (const entry in state.list) {
-    html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
-    state.list[entry].forEach((heading) => {
-      html += `<p>${ heading }</p>`
-    })
-  }
-
-  document.querySelector('#container').innerHTML = html
-}
+animate()
