@@ -17,18 +17,13 @@ function difference (newState) {
 }
 
 function check (newState) {
-  if (state.list !== newState.list) {
-    console.log('state changed, updating')
-    difference(newState)
-    update(newState)
-  } else {
-    console.log('no state changes')
-  }
+  difference(newState)
+  update(newState)
 }
 
 function animate () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
-  const time = (60 * 10) - since
+  const until = (60 * 10) - since
 
   const entries = []
   for (const entry in state.list) {
@@ -40,7 +35,7 @@ function animate () {
 
   console.clear()
   console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
-  console.log(`%c${ time } (time until update)`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
 
