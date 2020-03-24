@@ -1,7 +1,7 @@
 const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
 const socket = new WebSocket(url)
 
-const state = {
+let state = {
   list: {},
   timestamp: null
 }
