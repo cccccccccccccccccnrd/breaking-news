@@ -10,13 +10,16 @@ socket.addEventListener('message', (message) => {
   check(JSON.parse(message.data))
 })
 
+function difference (newState) {
+  const diff = DeepDiff.diff(state.list, newState.list)
+  console.log(newState)
+  /* console.log(diff) */
+}
+
 function check (newState) {
   if (state.list !== newState.list) {
     console.log('state changed, updating')
-    const diff = DeepDiff.diff(state.list, newState.list)
-    console.log(newState)
-    console.log(diff)
-    state = newState
+    difference(newState)
     update()
   } else {
     console.log('no state changes')
@@ -42,6 +45,7 @@ function animate () {
 }
 
 function update () {
+  state = newState
   animate()
 
   let html = ''
