@@ -65,10 +65,12 @@ function track () {
   console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;') */
-
-  if (typeof CABLES !== 'undefined') {
+  
+  if (typeof CABLES !== 'undefined' && state.current !== collection[index]) {
     CABLES.patch.setVariable('headline', collection[index])
   }
+  
+  state.current = collection[index]
 
   setTimeout(() => {
     track()
