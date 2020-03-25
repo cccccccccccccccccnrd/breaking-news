@@ -8,7 +8,7 @@ document.addEventListener('CABLES.jsLoaded', (event) => {
     glCanvasId: 'glcanvas',
     glCanvasResizeToWindow: true,
     variables: {
-      'headline': 'wow'
+      'headline': ''
     },
     onError: (error) => console.log(error),
     onPatchLoaded: (event) => console.log(event),
