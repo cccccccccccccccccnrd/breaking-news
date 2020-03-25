@@ -35,6 +35,7 @@ h1 {
 }
 
 #container {
+  display: none;
   max-width: 600px;
   padding: 1em;
 }

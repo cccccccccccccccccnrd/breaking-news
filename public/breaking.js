@@ -1,6 +1,23 @@
 const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
 const socket = new WebSocket(url)
 
+document.addEventListener('CABLES.jsLoaded', (event) => {
+  CABLES.patch = new CABLES.Patch({
+    patch: CABLES.exportedPatch,
+    prefixAssetPath: '',
+    glCanvasId: 'glcanvas',
+    glCanvasResizeToWindow: true,
+    variables: {
+      'headline': 'wow'
+    },
+    onError: (error) => console.log(error),
+    onPatchLoaded: (event) => console.log(event),
+    onFinishedLoading: (event) => console.log(event),
+  })
+
+  track()
+})
+
 let state = {
   list: {},
   timestamp: null
@@ -31,7 +48,6 @@ function update (newState) {
 }
 
 function track () {
-  console.log(state.timestamp)
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
 
@@ -40,18 +56,21 @@ function track () {
     entries.push(state.list[entry])
   }
 
-  const count = entries.flat().length
+  const collection = entries.flat()
+  const count = collection.length
   const index = Math.floor((count / (60 * 10)) * since)
 
-  console.clear()
+  /* console.clear()
   console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
-  console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;') */
+
+  if (typeof CABLES !== 'undefined') {
+    CABLES.patch.setVariable('headline', collection[index])
+  }
 
   setTimeout(() => {
     track()
   }, 1000)
 }
-
-track()
