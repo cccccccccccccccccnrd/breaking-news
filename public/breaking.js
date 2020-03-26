@@ -26,6 +26,14 @@ socket.addEventListener('message', (message) => {
   update(JSON.parse(message.data))
 })
 
+function log (since, until, count, index) {
+  console.clear()
+  console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
+  console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
+}
+
 function html () {
   let html = ''
   for (const entry in state.list) {
@@ -56,11 +64,7 @@ function track () {
   const count = state.collection.length
   const index = Math.floor((count / (60 * 10)) * since)
 
-  /* console.clear()
-  console.log(`%c${ since } (time since update)`, 'padding: 5px; background: blue; color: white;')
-  console.log(`%c${ until } (time until update)`, 'padding: 5px; background: blue; color: white;')
-  console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
-  console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;') */
+  /* log(since, until, count, index) */
   
   if (typeof CABLES !== 'undefined' && state.current !== state.collection[index]) {
     CABLES.patch.setVariable('headline', state.collection[index])
