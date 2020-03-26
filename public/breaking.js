@@ -10,9 +10,7 @@ document.addEventListener('CABLES.jsLoaded', (event) => {
     variables: {
       'headline': ''
     },
-    onError: (error) => console.log(error),
-    onPatchLoaded: (event) => console.log(event),
-    onFinishedLoading: (event) => console.log(event),
+    onError: (error) => console.log(error)
   })
 
   track()
@@ -20,6 +18,7 @@ document.addEventListener('CABLES.jsLoaded', (event) => {
 
 let state = {
   list: {},
+  collection: [],
   timestamp: null
 }
 
@@ -27,15 +26,7 @@ socket.addEventListener('message', (message) => {
   update(JSON.parse(message.data))
 })
 
-function difference (newState) {
-  const diff = DeepDiff.diff(state.list, newState.list)
-  console.log(newState)
-  console.log(diff)
-}
-
-function update (newState) {
-  state = newState
-
+function html () {
   let html = ''
   for (const entry in state.list) {
     html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
@@ -47,17 +38,22 @@ function update (newState) {
   document.querySelector('#container').innerHTML = html
 }
 
+function difference (newState) {
+  const diff = DeepDiff.diff(state.list, newState.list)
+  console.log(newState)
+  console.log(diff)
+}
+
+function update (newState) {
+  state = newState
+  state.collection = Object.keys(state.list).map((key) => state.list[key]).flat()
+}
+
 function track () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
 
-  const entries = []
-  for (const entry in state.list) {
-    entries.push(state.list[entry])
-  }
-
-  const collection = entries.flat()
-  const count = collection.length
+  const count = state.collection.length
   const index = Math.floor((count / (60 * 10)) * since)
 
   /* console.clear()
@@ -66,11 +62,11 @@ function track () {
   console.log(`%c${ count } (total headlines)`, 'padding: 5px; background: blue; color: white;')
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;') */
   
-  if (typeof CABLES !== 'undefined' && state.current !== collection[index]) {
-    CABLES.patch.setVariable('headline', collection[index])
+  if (typeof CABLES !== 'undefined' && state.current !== state.collection[index]) {
+    CABLES.patch.setVariable('headline', state.collection[index])
   }
   
-  state.current = collection[index]
+  state.current = state.collection[index]
 
   setTimeout(() => {
     track()
