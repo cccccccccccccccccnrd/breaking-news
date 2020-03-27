@@ -34,16 +34,14 @@ function log (since, until, count, index) {
   console.log(`%c${ index } (current headline index)`, 'padding: 5px; background: blue; color: white;')
 }
 
-function html () {
-  let html = ''
-  for (const entry in state.list) {
-    html += `<h1>${ entry.replace(/(^\w+:|^)\/\//, '') }</h1>`
-    state.list[entry].forEach((heading) => {
-      html += `<p>${ heading }</p>`
-    })
-  }
+function source (url) {
+  const html = `<a href="${ url }">${ new URL(url).hostname }</a>`
+  document.querySelector('#source').innerHTML = html
+}
 
-  document.querySelector('#container').innerHTML = html
+function headline (headline) {
+  CABLES.patch.setVariable('headline', headline.title)
+  source(headline.url)
 }
 
 function difference (newState) {
@@ -54,7 +52,19 @@ function difference (newState) {
 
 function update (newState) {
   state = newState
-  state.collection = Object.keys(state.list).map((key) => state.list[key]).flat()
+  state.collection = Object
+    .keys(state.list)
+    .map((url) => {
+      return state.list[url].map((title) => {
+        return {
+            title,
+            url
+          }
+      })
+    })
+    .flat()
+
+  console.log(state.collection)
 }
 
 function track () {
@@ -67,7 +77,7 @@ function track () {
   /* log(since, until, count, index) */
   
   if (typeof CABLES !== 'undefined' && state.current !== state.collection[index]) {
-    CABLES.patch.setVariable('headline', state.collection[index])
+    headline(state.collection[index])
   }
   
   state.current = state.collection[index]

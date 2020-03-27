@@ -17,9 +17,13 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
+a, a:visited {
+  color: white;
+  text-decoration: none;
+}
+
 p {
-  display: inline-block;
-  margin: 0 2em 0 0;
+  margin: 0;
 }
 
 h1:first-of-type {
@@ -34,9 +38,13 @@ h1 {
   word-break: break-all;
 }
 
-#container {
-  display: none;
-  max-width: 600px;
+.container {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   padding: 1em;
 }
 
