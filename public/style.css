@@ -44,7 +44,17 @@ h1 {
   bottom: 0;
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
   width: 100%;
   padding: 1em;
 }
 
+#source {
+  margin: 0 0 0 3em;
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    font-size: 9px;
+  }
+}
