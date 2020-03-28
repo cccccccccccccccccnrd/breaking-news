@@ -125,7 +125,6 @@ function store () {
 }
 
 function flatten (object) {
-  console.log(object)
   if (Object.keys(object).length === 0) {
     return []
   } else {
@@ -144,6 +143,7 @@ function flatten (object) {
       }
     })
     .flat()
+    .filter(Boolean)
   }
 }
 
@@ -151,10 +151,7 @@ function difference () {
   const old = flatten(state.old)
   const raw = flatten(state.raw)
 
-  return raw.filter((r) => !old.some((o) => {
-    console.log(o.title, r.title)
-    return o.title === r.title
-  }))
+  return raw.filter((r) => !old.some((o) => o.title === r.title))
 }
 
 function broadcast () {
