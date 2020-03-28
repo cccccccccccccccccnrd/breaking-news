@@ -112,7 +112,7 @@ wss.on('connection', (ws) => {
 })
 
 function flatten (object) {
-  if (Object.keys(obj).length === 0) {
+  if (Object.keys(object).length === 0) {
     return []
   } else {
     return Object
