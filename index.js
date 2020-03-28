@@ -2,6 +2,8 @@ const path = require('path')
 const express = require('express')
 const WebSocket = require('ws')
 const puppeteer = require('puppeteer')
+const db = require('monk')('localhost/breaking-news')
+const states = db.get('states')
 
 const term = 'covid'
 
@@ -111,6 +113,10 @@ wss.on('connection', (ws) => {
   ws.send(JSON.stringify(state))
 })
 
+function store () {
+  states.insert(state)
+}
+
 function flatten (object) {
   if (Object.keys(object).length === 0) {
     return []
@@ -181,6 +187,7 @@ async function check () {
   state.list = difference()
 
   broadcast()
+  store()
 }
 
 check()
