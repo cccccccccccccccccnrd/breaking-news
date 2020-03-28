@@ -186,13 +186,18 @@ async function check () {
   state.old = JSON.parse(JSON.stringify(state.raw))
 
   const browser = await puppeteer.launch(/* { headless: false } */)
+  try {
+    for (const entry of list) {
+      const headings = await go(browser, entry.url, entry.selector)
+      state.raw[entry.url] = headings
+    }
 
-  for (const entry of list) {
-    const headings = await go(browser, entry.url, entry.selector)
-    state.raw[entry.url] = headings
+    await browser.close()
+  } catch(error) {
+    await browser.close()
+  } finally {
+    await browser.close()
   }
-
-  await browser.close()
 
   state.timestamp = Date.now()
   state.list = difference()
