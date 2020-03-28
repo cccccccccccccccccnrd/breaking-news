@@ -46,11 +46,12 @@ function headline (headline) {
 }
 
 function track () {
+  const interval = 60 * 30
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
-  const until = (60 * 10) - since
+  const until = interval - since
 
   const count = state.list.length
-  const index = Math.floor((count / (60 * 10)) * since)
+  const index = Math.floor((count / interval) * since)
 
   /* log(since, until, count, index) */
   
