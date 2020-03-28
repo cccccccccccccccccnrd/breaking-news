@@ -32,17 +32,76 @@ const list = [{
 }, {
   url: `https://www.africanews.com/search/${ term }`,
   selector: '.teaser__title a'
+}, {
+  url: `https://www.trthaber.com/arama.html?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.zimlive.com/?s=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://de.reuters.com/search/news?blob=${ term }`,
+  selector: '.search-result-title a'
+}, {
+  url: `https://www.1stheadlines.com/cgi-bin/searchhedsd.cgi?search=${ term }&action=Search&stype=2`,
+  selector: '.hed'
+}, {
+  url: `https://www.newyorker.com/search/q/${ term }`,
+  selector: '.River__hed___re6RP'
+}, {
+  url: `https://us.cnn.com/search?q=${ term }`,
+  selector: '.cnn-search__result-headline a'
+}, {
+  url: `https://www.vaticannews.va/en/search.html?q=${ term }&in=all&sorting=latest`,
+  selector: '.teaser__title a span'
+}, {
+  url: `https://www.alarabiya.net/ar/tools/search?query=${ term }`,
+  selector: '.ttl'
+}, {
+  url: `https://112.ua/search?q=${ term }`,
+  selector: '.desc-bold'
+}, {
+  url: `https://www.antena3.com/buscador-site/index.html?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.ntv.ru/finder/?keytext=${ term }`,
+  selector: '.fndr_news h5'
+}, {
+  url: `https://www.sapo.pt/pesquisa/sapo/tudo?q=${ term }#gsc.tab=0&gsc.q=${ term }&gsc.page=1`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://nos.nl/zoeken/?q=${ term }`,
+  selector: '.search-results__title'
+}, {
+  url: `http://www.italynews.it/?s=${ term }`,
+  selector: '.entry-title.td-module-title a'
+}, {
+  url: `https://www.scmp.com/search/${ term }`,
+  selector: '.content-link__title'
+}, {
+  url: `https://www.jiji.com/jc/search?q=${ term }`,
+  selector: '.popIn_ArticleTitle .popInLink'
+}, {
+  url: `https://r.nikkei.com/search?keyword=${ term }`,
+  selector: '.nui-card__title a'
 }]
 
 const state = {
-  list: {},
+  raw: {},
+  old: {},
+  list: [],
   timestamp: null
 }
 
 const app = express()
 const port = 3330
 
+app.set('json spaces', 2)
+
 app.use('/', express.static(path.join(__dirname, 'public')))
+
+app.get('/list', (req, res) => {
+  res.json(list)
+})
 
 app.listen(port, () => console.log(`breaking-news served on ${port}`))
 
@@ -52,9 +111,28 @@ wss.on('connection', (ws) => {
   ws.send(JSON.stringify(state))
 })
 
-function broadcast () {
-  console.log(state)
+function flatten (object) {
+  return Object
+    .keys(object)
+    .map((url) => {
+      return object[url].map((title) => {
+        return {
+          title,
+          url
+        } 
+      })
+    })
+    .flat()
+}
 
+function difference () {
+  const old = flatten(state.old)
+  const raw = flatten(state.raw)
+
+  return raw.filter((r) => !old.some((o) => o.title === r.title))
+}
+
+function broadcast () {
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(state))
@@ -73,7 +151,7 @@ async function go (browser, url, selector) {
   
     const data = await page.evaluate((selector) => {
       const headings = Array.from(document.querySelectorAll(selector))
-      return headings.map(h => h.innerText)
+      return headings.map((h) => h.innerText.trim()).filter(Boolean)
     }, selector)
   
     page.close()
@@ -84,16 +162,20 @@ async function go (browser, url, selector) {
 }
 
 async function check () {
+  state.old = state.raw
+
   const browser = await puppeteer.launch(/* { headless: false } */)
 
   for (const entry of list) {
     const headings = await go(browser, entry.url, entry.selector)
-    state.list[entry.url] = headings
+    state.raw[entry.url] = headings
   }
 
-  state.timestamp = Date.now()
-
   await browser.close()
+
+  state.timestamp = Date.now()
+  state.list = difference()
+
   broadcast()
 }
 

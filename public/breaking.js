@@ -17,13 +17,13 @@ document.addEventListener('CABLES.jsLoaded', (event) => {
 })
 
 let state = {
-  list: {},
-  collection: [],
+  list: [],
   timestamp: null
 }
 
 socket.addEventListener('message', (message) => {
-  update(JSON.parse(message.data))
+  state = JSON.parse(message.data)
+  console.log(state)
 })
 
 function log (since, until, count, index) {
@@ -40,47 +40,25 @@ function source (url) {
 }
 
 function headline (headline) {
+  console.log(headline)
   CABLES.patch.setVariable('headline', headline.title)
   source(headline.url)
-}
-
-function difference (newState) {
-  const diff = DeepDiff.diff(state.list, newState.list)
-  console.log(newState)
-  console.log(diff)
-}
-
-function update (newState) {
-  state = newState
-  state.collection = Object
-    .keys(state.list)
-    .map((url) => {
-      return state.list[url].map((title) => {
-        return {
-            title,
-            url
-          }
-      })
-    })
-    .flat()
-
-  console.log(state.collection)
 }
 
 function track () {
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = (60 * 10) - since
 
-  const count = state.collection.length
+  const count = state.list.length
   const index = Math.floor((count / (60 * 10)) * since)
 
   /* log(since, until, count, index) */
   
-  if (typeof CABLES !== 'undefined' && state.current !== state.collection[index]) {
-    headline(state.collection[index])
+  if (typeof CABLES !== 'undefined' && state.current !== state.list[index]) {
+    headline(state.list[index])
   }
   
-  state.current = state.collection[index]
+  state.current = state.list[index]
 
   setTimeout(() => {
     track()
