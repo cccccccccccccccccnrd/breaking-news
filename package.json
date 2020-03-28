@@ -18,6 +18,7 @@
   "homepage": "https://github.com/cccccccccccccccccnrd/breaking-news#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "monk": "^7.1.2",
     "puppeteer": "^2.1.1",
     "ws": "^7.2.3"
   }
