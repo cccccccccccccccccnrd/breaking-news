@@ -162,7 +162,7 @@ async function go (browser, url, selector) {
 }
 
 async function check () {
-  state.old = state.raw
+  state.old = JSON.parse(JSON.stringify(state.raw))
 
   const browser = await puppeteer.launch(/* { headless: false } */)
 
