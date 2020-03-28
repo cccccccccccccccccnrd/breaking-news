@@ -102,7 +102,8 @@ app.set('json spaces', 2)
 app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.get('/list', (req, res) => {
-  res.json(list)
+  const urls = list.map((entry) => entry.url)
+  res.json(urls)
 })
 
 app.listen(port, () => console.log(`breaking-news served on ${port}`))
@@ -114,22 +115,33 @@ wss.on('connection', (ws) => {
 })
 
 function store () {
-  states.insert(state)
+  states.insert(state.list)
+    .then((entries) => {
+      console.log('stored')
+    })
+    .catch((error) => {
+      console.log('while storing', error)
+    })
 }
 
 function flatten (object) {
+  console.log(object)
   if (Object.keys(object).length === 0) {
     return []
   } else {
     return Object
     .keys(object)
     .map((url) => {
-      return object[url].map((title) => {
-        return {
-          title,
-          url
-        } 
-      })
+      if (typeof object[url] !== 'undefined') {
+        return object[url].map((title) => {
+          return {
+            title,
+            url
+          } 
+        })
+      } else {
+        return null
+      }
     })
     .flat()
   }
@@ -139,7 +151,10 @@ function difference () {
   const old = flatten(state.old)
   const raw = flatten(state.raw)
 
-  return raw.filter((r) => !old.some((o) => o.title === r.title))
+  return raw.filter((r) => !old.some((o) => {
+    console.log(o.title, r.title)
+    return o.title === r.title
+  }))
 }
 
 function broadcast () {
@@ -164,10 +179,9 @@ async function go (browser, url, selector) {
       return headings.map((h) => h.innerText.trim()).filter(Boolean)
     }, selector)
   
-    page.close()
     return data
   } catch(error) {
-    console.log(error)
+    console.log('while fetching', error)
   }
 }
 
