@@ -112,7 +112,10 @@ wss.on('connection', (ws) => {
 })
 
 function flatten (object) {
-  return Object
+  if (Object.keys(obj).length === 0) {
+    return {}
+  } else {
+    return Object
     .keys(object)
     .map((url) => {
       return object[url].map((title) => {
@@ -123,6 +126,7 @@ function flatten (object) {
       })
     })
     .flat()
+  }
 }
 
 function difference () {
