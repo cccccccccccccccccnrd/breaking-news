@@ -11,7 +11,7 @@ body {
   background: black;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji',
   'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-size: 14px;
+  font-size: 13px;
   text-transform: uppercase;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -47,6 +47,7 @@ h1 {
   align-items: flex-end;
   width: 100%;
   padding: 1em;
+  user-select: none;
 }
 
 #source {
