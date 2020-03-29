@@ -3,8 +3,10 @@ const path = require('path')
 const express = require('express')
 const WebSocket = require('ws')
 const puppeteer = require('puppeteer')
-const db = require('monk')(`localhost/breaking-news`)
+const db = require('monk')(`${ process.env.DB_USER }:${ process.env.DB_PASS }@localhost/breaking-news`)
 const states = db.get('states')
+
+console.log(`${ process.env.DB_USER }:${ process.env.DB_PASS }`)
 
 db.then(() => {
   console.log('Connected correctly to server')
