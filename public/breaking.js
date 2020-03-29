@@ -35,7 +35,7 @@ function log (since, until, count, index) {
 }
 
 function source (url) {
-  const html = `<a href="${ url }">${ new URL(url).hostname }</a>`
+  const html = `<a href="${ url }">source</a>`
   document.querySelector('#source').innerHTML = html
 }
 
