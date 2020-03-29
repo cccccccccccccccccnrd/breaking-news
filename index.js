@@ -8,7 +8,7 @@ const states = db.get('states')
 
 const term = 'covid'
 
-const list = [{
+const list = [/* {
   url: `https://www.zeit.de/suche/index?q=${ term }`,
   selector: '.zon-teaser-standard__title'
 }, {
@@ -101,7 +101,7 @@ const list = [{
 }, {
   url: `http://www.rainews.it/dl/rainews/ricerca.html?s=${ term }`,
   selector: '.articolo h2 a'
-}, {
+}, */ {
   url: `https://www.newsfirst.lk/?s=${ term }`,
   selector: '.search-result-contend-block h2'
 }, {
@@ -231,6 +231,7 @@ async function go (browser, url, selector) {
 async function check () {
   state.old = JSON.parse(JSON.stringify(state.raw))
 
+  const start = Date.now()
   const browser = await puppeteer.launch(/* { headless: false } */)
   try {
     for (const entry of list) {
@@ -244,6 +245,9 @@ async function check () {
   } finally {
     await browser.close()
   }
+
+  const time = (Date.now() - start) / 1000 / 60
+  console.log(`scraping time ${ time } minutes`)
 
   state.timestamp = Date.now()
   state.list = difference()
