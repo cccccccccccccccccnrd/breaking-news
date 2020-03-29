@@ -107,6 +107,11 @@ app.get('/list', (req, res) => {
   res.json(urls)
 })
 
+app.get('/data', (req, res) => {
+  const lists = retrieve()
+  res.json(lists)
+})
+
 app.listen(port, () => console.log(`breaking-news served on ${port}`))
 
 const wss = new WebSocket.Server({ port: 3331 })
@@ -114,6 +119,10 @@ const wss = new WebSocket.Server({ port: 3331 })
 wss.on('connection', (ws) => {
   ws.send(JSON.stringify(state))
 })
+
+async function retrieve () {
+  return await states.find({})
+}
 
 function store () {
   const entry = {
