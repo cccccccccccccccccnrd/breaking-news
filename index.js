@@ -107,7 +107,7 @@ app.get('/list', (req, res) => {
   res.json(urls)
 })
 
-app.get('/data', (req, res) => {
+app.get('/data', async (req, res) => {
   const lists = await retrieve()
   res.json(lists)
 })
