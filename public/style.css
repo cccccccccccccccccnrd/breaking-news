@@ -48,6 +48,7 @@ h1 {
   width: 100%;
   padding: 1em;
   user-select: none;
+  opacity: 0.5;
 }
 
 #source {
