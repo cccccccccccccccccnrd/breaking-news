@@ -6,6 +6,10 @@ const puppeteer = require('puppeteer')
 const db = require('monk')(`${ process.env.DB_USER }:${ process.env.DB_PASS }@localhost/breaking-news`)
 const states = db.get('states')
 
+db.then(() => {
+  console.log('Connected correctly to server')
+})
+
 const term = 'covid'
 
 const list = [{
@@ -116,7 +120,7 @@ wss.on('connection', (ws) => {
 })
 
 function store () {
-  states.insert(state.list)
+  states.insert({ list: state.list })
     .then((entries) => {
       console.log('stored')
     })
