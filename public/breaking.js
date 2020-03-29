@@ -1,4 +1,4 @@
-const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://gruppe5.org/breaking-news-ws'
+const url = window.location.hostname === 'localhost' ? 'ws://localhost:3331' : 'wss://infodemic.live/ws'
 const socket = new WebSocket(url)
 
 document.addEventListener('CABLES.jsLoaded', (event) => {
