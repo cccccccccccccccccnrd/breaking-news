@@ -8,7 +8,7 @@ const states = db.get('states')
 
 const term = 'covid'
 
-const list = [/* {
+const list = [{
   url: `https://www.zeit.de/suche/index?q=${ term }`,
   selector: '.zon-teaser-standard__title'
 }, {
@@ -101,7 +101,7 @@ const list = [/* {
 }, {
   url: `http://www.rainews.it/dl/rainews/ricerca.html?s=${ term }`,
   selector: '.articolo h2 a'
-}, */ {
+}, {
   url: `https://www.newsfirst.lk/?s=${ term }`,
   selector: '.search-result-contend-block h2'
 }, {
