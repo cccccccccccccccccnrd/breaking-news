@@ -3,12 +3,8 @@ const path = require('path')
 const express = require('express')
 const WebSocket = require('ws')
 const puppeteer = require('puppeteer')
-const db = require('monk')(`${ process.env.DB_USER }:${ process.env.DB_PASS }@localhost/breaking-news`, { authSource:'admin' })
+const db = require('monk')(`${ process.env.DB_USER }:${ process.env.DB_PASS }@localhost/breaking-news`, { authSource: 'admin' })
 const states = db.get('states')
-
-db.then(() => {
-  console.log('Connected correctly to server')
-})
 
 const term = 'covid'
 
