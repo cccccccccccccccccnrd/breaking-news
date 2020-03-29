@@ -41,7 +41,7 @@ function source (url) {
 
 function cut (title) {
   const array = [...title]
-  const max = Math.floor(window.innerWidth / 40)
+  const max = Math.floor(window.innerWidth / 30)
   console.log(max)
 
   for (let i = 0; i < array.length; i++) {
