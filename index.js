@@ -1,8 +1,9 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const WebSocket = require('ws')
 const puppeteer = require('puppeteer')
-const db = require('monk')('localhost/breaking-news')
+const db = require('monk')(`${ process.env.DB_USER }:${ process.env.DB_PASS }@localhost/breaking-news`)
 const states = db.get('states')
 
 const term = 'covid'
