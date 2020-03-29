@@ -8,7 +8,7 @@ const states = db.get('states')
 
 const term = 'covid'
 
-const list = [{
+const list = [/* {
   url: `https://www.zeit.de/suche/index?q=${ term }`,
   selector: '.zon-teaser-standard__title'
 }, {
@@ -86,6 +86,36 @@ const list = [{
 }, {
   url: `https://r.nikkei.com/search?keyword=${ term }`,
   selector: '.nui-card__title a'
+}, */ {
+  url: `https://www.nytimes.com/search?query=${ term }`,
+  selector: 'li[data-testid="search-bodega-result"] h4'
+}, {
+  url: `https://www.5.ua/search?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.aljazeera.net/home/search?q=${ term }`,
+  selector: 'article h1 a'
+}, {
+  url: `https://www.businessmalawi.com/?s=${ term }`,
+  selector: 'article h1 a'
+}, {
+  url: `http://www.rainews.it/dl/rainews/ricerca.html?s=${ term }`,
+  selector: '.articolo h2 a'
+}, {
+  url: `https://www.newsfirst.lk/?s=${ term }`,
+  selector: '.search-result-contend-block h2'
+}, {
+  url: `https://www.thelocal.fr/search/?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.telegraph.co.uk/search.html?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.n-tv.de/suche/?a=search&at=all&q=${ term }`,
+  selector: '.teaser__headline'
+}, {
+  url: `https://www.timesofisrael.com/search/?q=${ term }&submit=search`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
 }]
 
 const state = {
@@ -205,6 +235,7 @@ async function check () {
   try {
     for (const entry of list) {
       const headings = await go(browser, entry.url, entry.selector)
+      console.log(headings)
       state.raw[entry.url] = headings
     }
 
