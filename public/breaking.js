@@ -39,9 +39,25 @@ function source (url) {
   document.querySelector('#source').innerHTML = html
 }
 
+function cut (title) {
+  const array = [...title]
+  const max = Math.floor(window.innerWidth / 40)
+  console.log(max)
+
+  for (let i = 0; i < array.length; i++) {
+    if (i % max === 0) {
+      array.splice(i, 0, '\n')
+    }
+  }
+
+  return array.join('')
+}
+
 function headline (headline) {
   console.log(headline)
-  CABLES.patch.setVariable('headline', headline.title)
+  const title = cut(headline.title)
+  console.log(title)
+  CABLES.patch.setVariable('headline', title)
   source(headline.url)
 }
 
