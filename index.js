@@ -142,7 +142,7 @@ app.get('/data', async (req, res) => {
   res.json(lists)
 })
 
-app.listen(port, () => console.log(`breaking-news served on ${port}`))
+app.listen(port, () => console.log(`breaking-news serving on ${port}`))
 
 const wss = new WebSocket.Server({ port: 3331 })
 
