@@ -116,7 +116,12 @@ wss.on('connection', (ws) => {
 })
 
 function store () {
-  states.insert({ list: state.list })
+  const entry = {
+    list: state.list,
+    timestamp: Date.now()
+  }
+
+  states.insert(entry)
     .then((entries) => {
       console.log('stored')
     })
