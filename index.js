@@ -175,7 +175,8 @@ async function go (browser, url, selector) {
       const headings = Array.from(document.querySelectorAll(selector))
       return headings.map((h) => h.innerText.trim()).filter(Boolean)
     }, selector)
-  
+    
+    await page.close()
     return data
   } catch(error) {
     console.log('while fetching', error)
