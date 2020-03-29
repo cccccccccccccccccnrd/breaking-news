@@ -235,7 +235,6 @@ async function check () {
   try {
     for (const entry of list) {
       const headings = await go(browser, entry.url, entry.selector)
-      console.log(headings)
       state.raw[entry.url] = headings
     }
 
