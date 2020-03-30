@@ -8,7 +8,7 @@ const states = db.get('states')
 
 const term = 'covid'
 
-const list = [{
+const list = [/* {
   url: `https://www.zeit.de/suche/index?q=${ term }`,
   selector: '.zon-teaser-standard__title'
 }, {
@@ -116,6 +116,15 @@ const list = [{
 }, {
   url: `https://www.timesofisrael.com/search/?q=${ term }&submit=search`,
   selector: '.gsc-thumbnail-inside a.gs-title'
+}, */{
+  url: `https://taz.de/!s=${ term }/`,
+  selector: '.Titel'
+}, {
+  url: `https://www.wsj.com/search/term.html?KEYWORDS=${ term }&mod=searchresults_viewallresults`,
+  selector: '.headline'
+}, {
+  url: `https://www.sankei.com/search/?q=${ term }`,
+  selector: '.popIn_ArticleTitle .popInLink'
 }]
 
 const state = {
@@ -134,7 +143,11 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 
 app.get('/list', (req, res) => {
   const urls = list.map((entry) => entry.url)
-  res.json(urls)
+
+  res.json({ 
+    list: urls,
+    length: urls.length
+  })
 })
 
 app.get('/data', async (req, res) => {
@@ -236,6 +249,7 @@ async function check () {
   try {
     for (const entry of list) {
       const headings = await go(browser, entry.url, entry.selector)
+      console.log(headings)
       state.raw[entry.url] = headings
     }
 
