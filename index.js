@@ -218,6 +218,24 @@ const list = [{
 }, {
   url: `https://news.un.org/en/search/${ term }`,
   selector: '.story-title'
+}, {
+  url: `https://www.nbcnews.com/search?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://edition.cnn.com/search?q=${ term }`,
+  selector: '.cnn-search__result-headline a'
+}, {
+  url: `https://www.upi.com/search?ss=${ term }`,
+  selector: '.list .title'
+}, {
+  url: `https://www.news.com.au/search?q=${ term }`,
+  selector: '.story-block .heading'
+}, {
+  url: `https://www.euronews.com/search?query=${ term }`,
+  selector: 'article h3 a'
+}, {
+  url: `https://www.rt.com/search?q=${ term }`,
+  selector: '.card .card__header .link'
 }]
 
 const state = {
