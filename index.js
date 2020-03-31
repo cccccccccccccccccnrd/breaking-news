@@ -209,6 +209,15 @@ const list = [{
 }, {
   url: `https://www.dw.com/search/uk?searchNavigationId=9874&languageCode=uk&origin=gN&item=${ term }`,
   selector: '.tw h2'
+}, {
+  url: `https://www.bbc.co.uk/search?q=${ term }&page=1`,
+  selector: '.css-1aofmbn-PromoHeadline a'
+}, {
+  url: `https://www.rki.de/SiteGlobals/Forms/Suche/serviceSucheForm.html?searchEngineQueryString=${ term }`,
+  selector: '#searchResult h3 a'
+}, {
+  url: `https://news.un.org/en/search/${ term }`,
+  selector: '.story-title'
 }]
 
 const state = {
