@@ -167,6 +167,48 @@ const list = [{
 }, {
   url: `https://www.hongkongfp.com/?s=${ term }`,
   selector: '.entry-title a'
+}, {
+  url: `https://www.881903.com/search?q=${ term }`,
+  selector: '.archive-grid__headline'
+}, {
+  url: `https://www.thelocal.it/search/?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.blikopnieuws.nl/zoeken?query=${ term }`,
+  selector: '.title'
+},  {
+  url: `https://www.nknews.org/?s=${ term }`,
+  selector: '.news-block-standard-inner h2 a'
+}, {
+  url: `https://www.palestinechronicle.com/?s=${ term }`,
+  selector: '.entry-title a'
+}, {
+  url: `https://www.tsf.pt/pesquisa.html?q=${ term }`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `http://www.rtp.pt/pesquisa/?q=covid#gsc.tab=0&gsc.q=${ term }&gsc.page=1`,
+  selector: '.gsc-thumbnail-inside a.gs-title'
+}, {
+  url: `https://www.rferl.org/s?k=${ term }&tab=all&pi=1&r=any&pp=20`,
+  selector: '.media-block__title'
+}, {
+  url: `https://www.1tv.ru/search?q=text%3A${ term }`,
+  selector: '.show-name'
+}, {
+  url: `https://2stv.net/?s=${ term }`,
+  selector: '.entry-title a'
+}, {
+  url: `https://www.biznews.com/?s=${ term }`,
+  selector: 'h2.entry-title'
+}, {
+  url: `https://www.africanews24-7.co.za/?s=${ term }`,
+  selector: 'h3.entry-title'
+}, {
+  url: `http://search.hankooki.com/search.php?q=&kw=${ term }`,
+  selector: 'li.title a'
+}, {
+  url: `https://www.dw.com/search/uk?searchNavigationId=9874&languageCode=uk&origin=gN&item=${ term }`,
+  selector: '.tw h2'
 }]
 
 const state = {
@@ -291,7 +333,7 @@ async function check () {
   try {
     for (const entry of list) {
       const headings = await go(browser, entry.url, entry.selector)
-      /* console.log(headings) */
+      console.log(headings)
       state.raw[entry.url] = headings
     }
 
