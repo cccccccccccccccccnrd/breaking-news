@@ -125,6 +125,48 @@ const list = [{
 }, {
   url: `https://www.sankei.com/search/?q=${ term }`,
   selector: '.popIn_ArticleTitle .popInLink'
+}, {
+  url: `https://mainichi.jp/search?q=${ term }&s=date`,
+  selector: '.midashi'
+}, {
+  url: `https://sitesearch.asahi.com/.cgi/sitesearch/sitesearch.pl?Keywords=${ term }`,
+  selector: '.SearchResult_Headline em'
+}, {
+  url: `https://www.azzaman.com/?s=${ term }`,
+  selector: '.entry-title.td-module-title a'
+}, {
+  url: `https://mangish.net/?s=${ term }`,
+  selector: '.post-box-title'
+}, {
+  url: `https://www.tagesanzeiger.ch/search?q=${ term }`,
+  selector: 'article .title'
+}, {
+  url: `https://www.nzz.ch/suche?q=${ term }`,
+  selector: '.teaser__title-name'
+}, {
+  url: `https://www.tachles.ch/suche?suche=${ term }`,
+  selector: '.article__headline'
+}, {
+  url: `https://www.rsi.ch/ricerca/?q=${ term }`,
+  selector: '.c-teaserSmall_title a'
+}, {
+  url: `https://www.stern.de/search?q=${ term }`,
+  selector: '.a-headline'
+}, {
+  url: `https://www.merkur.de/suche/?tt=1&tx=&sb=&td=&fd=&qr=${ term }`,
+  selector: '.id-Teaser-el > a'
+}, {
+  url: `https://www.ndr.de/suche10.html?query=${ term }`,
+  selector: '.content a'
+}, {
+  url: `https://www.deutschlandfunk.de/suchergebnisse.448.de.html?search%5Bsubmit%5D=1&search%5BwithNews%5D%5B%5D=WithNews&search%5Bword%5D=${ term }`,
+  selector: '.listright a'
+}, {
+  url: `https://www.ardmediathek.de/ard/search/${ term }`,
+  selector: '.headline'
+}, {
+  url: `https://www.hongkongfp.com/?s=${ term }`,
+  selector: '.entry-title a'
 }]
 
 const state = {
@@ -249,6 +291,7 @@ async function check () {
   try {
     for (const entry of list) {
       const headings = await go(browser, entry.url, entry.selector)
+      /* console.log(headings) */
       state.raw[entry.url] = headings
     }
 
