@@ -18,7 +18,7 @@ ws.on('message', (message) => {
 
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
-bot.on('start', (ctx) => {
+bot.start((ctx) => {
   context = ctx
 })
 
