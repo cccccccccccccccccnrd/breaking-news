@@ -19,7 +19,11 @@ ws.on('message', (message) => {
 const bot = new Telegraf(process.env.BOT_TOKEN)
 
 bot.start((ctx) => {
-  context = ctx
+  const id = ctx.update.message.from.id
+
+  if (id === 213181105) {
+    context = ctx
+  }
 })
 
 bot.launch()
