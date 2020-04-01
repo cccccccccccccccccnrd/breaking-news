@@ -30,7 +30,7 @@ bot.start((ctx) => {
 bot.launch()
 
 function headline (headline) {
-  if (context) {
+  if (context && headline.title) {
     /* context.telegram.sendMessage('@infodemiclive', `<a href="${ headline.url }">${ headline.title }</a>`, { parse_mode: 'html' }) */
     context.telegram.sendMessage('@infodemiclive', headline.title)
   } else {
