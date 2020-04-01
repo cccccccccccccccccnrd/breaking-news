@@ -4,4 +4,3 @@
 - Photoshop math GLSL shaders by Romain Dura (https://mouaif.wordpress.com/2009/01/05/photoshop-math-with-glsl-shaders/)
 - ops by cables user _LJ_ (https://cables.gl/user/_LJ_)
 - ops by cables user andro (https://cables.gl/user/andro)
-- ops by cables user tim (https://cables.gl/user/tim)

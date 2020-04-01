@@ -56,7 +56,6 @@ function cut (title) {
 function headline (headline) {
   console.log(headline)
   const title = cut(headline.title)
-  console.log(title)
   CABLES.patch.setVariable('headline', title)
   source(headline.url)
 }
