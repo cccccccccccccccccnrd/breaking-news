@@ -23,6 +23,7 @@ bot.start((ctx) => {
 
   if (id === 213181105) {
     context = ctx
+    console.log('set context')
   }
 })
 
