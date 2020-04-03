@@ -8,7 +8,7 @@ const states = db.get('states')
 
 const term = 'covid'
 
-const list = [{
+const list = [/* {
   url: `https://www.zeit.de/suche/index?q=${ term }`,
   selector: '.zon-teaser-standard__title'
 }, {
@@ -230,7 +230,7 @@ const list = [{
 }, {
   url: `https://www.news.com.au/search?q=${ term }`,
   selector: '.story-block .heading'
-}, {
+}, */ {
   url: `https://www.euronews.com/search?query=${ term }`,
   selector: 'article h3 a'
 }, {
@@ -318,8 +318,8 @@ function flatten (object) {
 
 function shuffle(actual) {
   for (let i = actual.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1))
-      [actual[i], actual[j]] = [actual[j], actual[i]]
+    const j = Math.floor(Math.random() * (i + 1))
+    [actual[i], actual[j]] = [actual[j], actual[i]];
   }
 
   return actual
