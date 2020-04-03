@@ -318,8 +318,8 @@ function flatten (object) {
 
 function shuffle(actual) {
   for (let i = actual.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    [actual[i], actual[j]] = [actual[j], actual[i]];
+    const j = Math.floor(Math.random() * (i + 1));
+    [actual[i], actual[j]] = [actual[j], actual[i]]
   }
 
   return actual
