@@ -61,7 +61,7 @@ function headline (headline) {
 }
 
 function track () {
-  const interval = 60 * 30
+  const interval = 5 * 60 * 60 * 1000
   const since = Math.floor((Date.now() - state.timestamp) / 1000)
   const until = interval - since
 
